@@ -64,7 +64,7 @@ app.use(session({
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
         maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-        secure: true
+        secure: process.env.NODE_ENV === 'production'
     }
 }));
 
@@ -82,6 +82,7 @@ app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.user = req.user;
+    console.log(req.user);
     next();
 });
 
