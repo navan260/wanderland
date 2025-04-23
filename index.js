@@ -59,7 +59,7 @@ app.use(session({
     store,
     secret: 'thisshouldbeasecret',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
