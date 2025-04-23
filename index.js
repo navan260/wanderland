@@ -70,7 +70,7 @@ app.use(session({
 
 
 
-app.use(cookieParser(secret='thisshouldbeasecret'));
+app.use(cookieParser());
 app.use(flash());
 app.use(passport.initialize()); 
 app.use(passport.session()); 
