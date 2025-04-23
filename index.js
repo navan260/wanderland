@@ -18,6 +18,7 @@ const User = require('./models/user');
 const wrapasync = require('./wrapasync');
 const MongoStore = require('connect-mongo');
 const localStrategy = require('passport-local').Strategy; 
+const MongoStore = require('connect-mongo');
 
 
 //Database Connection
