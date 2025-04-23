@@ -1,0 +1,17 @@
+<% layout('boilerplate.ejs') -%>
+<div class="container">
+    <h2>Sign up Form</h2>
+    <form action="/login" method="post" class="needs-validation" novalidate>
+        <div class="">
+            <label class="form-label" for="username">Enter username</label>
+            <input type="text" class="form-control" name="username" id="username" required>
+            <div class="invalid-feedback">Invalid username</div>
+        </div>
+        <div class="">
+            <label class="form-label" for="password">Enter password</label>
+            <input type="text" class="form-control" name="password" id="password" required>
+            <div class="invalid-feedback">Invalid password</div>
+        </div>
+        <button class="btn btn-primary mt-3">Login</button>
+    </form>
+</div>

@@ -1,0 +1,22 @@
+<% layout('boilerplate') -%>
+<% if(listings.length == 0) {%>
+<div class="empty">
+    <h2 class="empty text-center">No listings available</h2>
+<% } %>
+</div>
+<% if(listings.length > 0) { %>
+    <div class="row m-3">
+        <% for(listing of listings){ %>
+            <div class="card col-sm-6 col-md-4">
+                <a href="/listings/<%= listing._id %>">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.description %>">
+                <div class="card-body">
+                    <p class="card-text">Owned by <%= listing.owner.username %></p>
+                    <h5 class="card-title"><%= listing.title %></h5>
+                    <p class="card-text"><%= listing.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' }) %></p>
+                </div>
+            </a>
+            </div>
+        <% } %>
+        <% } %>
+    </div>

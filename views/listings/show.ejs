@@ -1,0 +1,75 @@
+<% layout('boilerplate') -%>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+
+            <h2 class="mt-4"><%= listing.title %></h2>
+            <div class="img">
+                <img src="<%= listing.image.url %>" alt="Wow" class="mb-4 listing-img">
+            </div>
+            <div class="listing-body">
+                <p><%= listing.description %></p>
+                <p><%= listing.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' }) %></p>
+                <p><%= listing.location %>, <%= listing.country %></p>
+            </div>
+            
+            <% if(user && user.equals(listing.owner._id)) {%>
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit listing</a>
+                <form class="inline-form" action="/listings/<%= listing._id %>?_method=DELETE"  method="post">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                <% } %>
+                <hr>
+                <% if(user) { %>
+                    <div class="review-publish">
+                        <h3>Publish a review</h3>
+                        <form action="/listings/<%= listing._id %>/reviews" method="post">
+                            <div>
+                                <label class="form-label" for="description">Add description</label>
+                                <textarea class="form-control" name="review[description]" id="description"></textarea>
+                            </div>
+                            <br>
+                            <div>
+                                <label class="form-label" for="eating">Set rating</label>
+                                <fieldset class="starability-basic">
+                                    <input type="radio" id="no-rate" class="input-no-rate" name="" value="0" checked aria-label="No rating." />
+                                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                    <label for="first-rate1" title="Terrible">1 star</label>
+                                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                    <label for="first-rate2" title="Not good">2 stars</label>
+                                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                    <label for="first-rate3" title="Average">3 stars</label>
+                                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                                    <label for="first-rate4" title="Very good">4 stars</label>
+                                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                    <label for="first-rate5" title="Amazing">5 stars</label>
+                                </fieldset>
+                            </div>
+                            <button class="btn btn-primary">Publish</button>
+                        </form>
+                    </div>
+                    <% } %>
+                </br><hr>
+                <% if(listing.reviews.length > 0){ %>
+                    <h3>Reviews:</h3>
+                    <% } %>
+                <div class="reviews col-md-8">
+                        
+                        <% for(review of listing.reviews){ %>
+                            <div class="review">
+                                <h4>@<%= review.author.username %></h4>
+                                <p class="starability-result" data-rating="3">
+                                    Rated: 3 stars
+                                </p>
+                                <p><%= review.description %></p>
+                                <% if(user && user._id.equals(review.author._id)) {%>
+                                    <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                    <% } %>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
