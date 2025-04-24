@@ -20,15 +20,13 @@ const MongoStore = require('connect-mongo');
 const localStrategy = require('passport-local').Strategy;
 
 
-//Database Connection
-// async function main(){
-//     await mongoose.connect('mongodb://127.0.0.1:27017/wanderland');
-// }
 async function main(){
     await mongoose.connect(process.env.ATLAS_URL);
+    console.log('mongodb connecting')
 }
 main()
 .catch(err => console.log(err))
+console.log('mongodb connected');
 
 //Express application setup
 const app = express();
@@ -69,7 +67,7 @@ app.use(session({
 }));
 
 
-
+app.set('trust proxy', 1);
 app.use(cookieParser());
 app.use(flash());
 app.use(passport.initialize()); 
