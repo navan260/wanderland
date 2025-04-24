@@ -17,8 +17,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user'); 
 const wrapasync = require('./wrapasync');
 const MongoStore = require('connect-mongo');
-const localStrategy = require('passport-local').Strategy; 
-const MongoStore = require('connect-mongo');
+const localStrategy = require('passport-local').Strategy;
 
 
 //Database Connection
@@ -79,11 +78,10 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser()); 
 passport.use(new localStrategy(User.authenticate())); 
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
-    res.locals.user = req.user;
-    console.log(req.sessionID);
+    res.locals.user =  await req.user;
     next();
 });
 
